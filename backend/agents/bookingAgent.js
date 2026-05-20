@@ -4,13 +4,22 @@ const admin = require('firebase-admin');
 
 // Ensure Firebase is initialized
 if (!admin.apps.length) {
-    let serviceAccount;
-    if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-        serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-    } else {
-        serviceAccount = require('../firebase-service-account.json');
+    try {
+        let serviceAccount;
+        if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+            serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+            if (serviceAccount.private_key) {
+                serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '
+');
+            }
+        } else {
+            serviceAccount = require('../firebase-service-account.json');
+        }
+        admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+    } catch (e) {
+        console.error('Firebase Initialization Error:', e);
+        process.exit(1);
     }
-    admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 }
 const db = admin.firestore();
 
@@ -113,4 +122,5 @@ router.post('/book-service', async (req, res) => {
 });
 
 module.exports = router;
+
 
