@@ -1,0 +1,122 @@
+{
+  "workflow_execution_trace": [
+    {
+      "scenario": "G-13 AC Example",
+      "status": "COMPLETED",
+      "steps": [
+        {
+          "state": "INTENT_PARSING",
+          "action": "Call /api/parse-intent",
+          "input": "G-13 mein AC kharab hai, please kal subah 10 baje kisi ko bhej dein",
+          "decision": {
+            "confidence": 0.95,
+            "condition_met": "confidence_score >= 0.70",
+            "next_state": "PROVIDER_MATCHING"
+          },
+          "extracted_payload": {
+            "service_type": "AC technician",
+            "location": "G-13",
+            "urgency": "medium",
+            "preferred_time": "Tomorrow 10 AM",
+            "budget_sensitivity": "medium"
+          }
+        },
+        {
+          "state": "PROVIDER_MATCHING",
+          "action": "Call /api/match-providers",
+          "decision": {
+            "matches_found": 5,
+            "condition_met": "matches.length > 0",
+            "selected_provider": "prov_ac_001",
+            "reasoning": "Recommended Ali AC Services (G-13) due to a 31% higher on-time reliability score and stronger specialization match, despite being slightly farther.",
+            "next_state": "PRICING"
+          }
+        },
+        {
+          "state": "PRICING",
+          "action": "Call /api/calculate-price",
+          "decision": {
+            "total_pkr": 6175,
+            "reasoning": "Base: 5000 PKR. intermediate complexity (1.3x). Loyalty discount applied (-325 PKR).",
+            "next_state": "USER_CONFIRMATION"
+          }
+        },
+        {
+          "state": "USER_CONFIRMATION",
+          "action": "Present provider and price",
+          "decision": {
+            "user_response": "APPROVED",
+            "next_state": "BOOKING"
+          }
+        },
+        {
+          "state": "BOOKING",
+          "action": "Call /api/book-service",
+          "decision": {
+            "conflict_detected": false,
+            "condition_met": "conflict == false",
+            "booking_id": "book_1779296847252_708",
+            "next_state": "FOLLOW_UP"
+          }
+        },
+        {
+          "state": "FOLLOW_UP",
+          "action": "Call /api/simulate-followup",
+          "decision": {
+            "status": "Timeline simulated successfully",
+            "next_state": "FEEDBACK"
+          }
+        },
+        {
+          "state": "FEEDBACK",
+          "action": "Call /api/submit-feedback",
+          "decision": {
+            "rating_submitted": 5,
+            "new_provider_rating": 4.5,
+            "status": "Workflow Terminated Successfully"
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "No-Provider Stress Test",
+      "status": "FALLBACK_TRIGGERED",
+      "steps": [
+        {
+          "state": "INTENT_PARSING",
+          "action": "Call /api/parse-intent",
+          "input": "Mujhe spaceship mechanic chahiye Blue Area mein",
+          "decision": {
+            "confidence": 0.85,
+            "condition_met": "confidence_score >= 0.70",
+            "next_state": "PROVIDER_MATCHING"
+          },
+          "extracted_payload": {
+            "service_type": "spaceship mechanic",
+            "location": "Blue Area",
+            "urgency": "medium",
+            "preferred_time": "Immediate",
+            "budget_sensitivity": "medium"
+          }
+        },
+        {
+          "state": "PROVIDER_MATCHING",
+          "action": "Call /api/match-providers",
+          "decision": {
+            "matches_found": 0,
+            "condition_met": "matches.length == 0",
+            "reasoning": "No providers found for this service.",
+            "next_state": "NO_PROVIDER_FALLBACK"
+          }
+        },
+        {
+          "state": "NO_PROVIDER_FALLBACK",
+          "action": "Inform user no providers available, escalate to manual review",
+          "decision": {
+            "status": "Workflow Terminated in Fallback State"
+          }
+        }
+      ]
+    }
+  ]
+}

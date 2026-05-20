@@ -1,0 +1,50 @@
+{
+  "trace_id": "trace_spaceship_no_provider",
+  "scenario": "Spaceship Mechanic — No Provider Fallback",
+  "timestamp": "2026-05-20T20:06:38.308Z",
+  "stages": [
+    {
+      "state": "INTENT_PARSING",
+      "agent": "intentAgent",
+      "input": "Mujhe spaceship mechanic chahiye Blue Area mein",
+      "output": {
+        "service_type": null,
+        "location": "Blue Area",
+        "urgency": "medium",
+        "preferred_time": null,
+        "budget_sensitivity": "medium",
+        "confidence_score": 0.40
+      },
+      "decision": "HALTED_FOR_CLARIFICATION (confidence 0.40 < 0.70 threshold)"
+    },
+    {
+      "state": "INTENT_PARSING (retry)",
+      "agent": "intentAgent",
+      "input": "need an spaceship technician in e11",
+      "output": {
+        "service_type": null,
+        "location": "E-11",
+        "urgency": "medium",
+        "preferred_time": null,
+        "budget_sensitivity": "medium",
+        "confidence_score": 0.40
+      },
+      "decision": "HALTED_FOR_CLARIFICATION again — service_type 'spaceship mechanic' not in our taxonomy"
+    },
+    {
+      "state": "PROVIDER_MATCHING (forced)",
+      "agent": "matchingAgent",
+      "input": { "service_type": "spaceship mechanic", "location": "Blue Area" },
+      "output": {
+        "success": true,
+        "providers": [],
+        "message": "No providers found for this service."
+      },
+      "decision": "EMPTY_LIST — no providers match. Workflow transitions to FALLBACK_MANUAL_REVIEW"
+    }
+  ],
+  "final_state": "FALLBACK_MANUAL_REVIEW",
+  "total_api_calls": 3,
+  "total_transitions": 3,
+  "notes": "The workflow correctly identified that 'spaceship mechanic' is not a valid service category. The NLP agent set confidence below threshold, and the matching agent returned an empty list. Both safeguards fired correctly."
+}

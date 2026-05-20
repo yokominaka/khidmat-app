@@ -1,0 +1,52 @@
+[
+  {
+    "booking_id": "book_001",
+    "user_id": "user_client_88",
+    "provider_id": "prov_ac_001",
+    "service_type": "AC technician",
+    "slot": { "date": "2026-05-19", "time": "09:00-12:00" },
+    "status": "confirmed",
+    "price_breakdown": { "base": 2500, "travel": 300, "total": 2800 },
+    "notes": "Inverter AC cooling issue"
+  },
+  {
+    "booking_id": "book_002",
+    "user_id": "user_client_45",
+    "provider_id": "prov_plumb_004",
+    "service_type": "plumber",
+    "slot": { "date": "2026-05-19", "time": "10:00-14:00" },
+    "status": "completed",
+    "price_breakdown": { "base": 1200, "travel": 400, "total": 1600 },
+    "notes": "Kitchen sink pipe burst"
+  },
+  {
+    "booking_id": "book_003",
+    "user_id": "user_client_12",
+    "provider_id": "prov_ac_002",
+    "service_type": "AC technician",
+    "slot": { "date": "2026-05-19", "time": "13:00-16:00" },
+    "status": "confirmed",
+    "price_breakdown": { "base": 2100, "travel": 250, "total": 2350 },
+    "notes": "Gas charging needed"
+  },
+  {
+    "booking_id": "book_004",
+    "user_id": "user_client_09",
+    "provider_id": "prov_elec_005",
+    "service_type": "electrician",
+    "slot": { "date": "2026-05-20", "time": "09:00-13:00" },
+    "status": "pending",
+    "price_breakdown": { "base": 1500, "travel": 500, "total": 2000 },
+    "notes": "UPS bypass setup"
+  },
+  {
+    "booking_id": "book_005",
+    "user_id": "user_client_71",
+    "provider_id": "prov_tutor_006",
+    "service_type": "tutor",
+    "slot": { "date": "2026-05-20", "time": "16:00-18:00" },
+    "status": "confirmed",
+    "price_breakdown": { "base": 3000, "travel": 0, "total": 3000 },
+    "notes": "Physics numericals session"
+  }
+]

@@ -1,0 +1,57 @@
+{
+  "workflow_name": "service_lifecycle",
+  "version": "1.0",
+  "description": "Antigravity Orchestration State Machine for Service Bookings",
+  "states": {
+    "INTENT_PARSING": {
+      "endpoint": "/api/parse-intent",
+      "on_success_condition": "confidence_score >= 0.70",
+      "next": "PROVIDER_MATCHING",
+      "on_failure_condition": "confidence_score < 0.70",
+      "fallback": "CLARIFICATION_LOOP"
+    },
+    "CLARIFICATION_LOOP": {
+      "action": "Return clarification_question to user",
+      "next": "INTENT_PARSING"
+    },
+    "PROVIDER_MATCHING": {
+      "endpoint": "/api/match-providers",
+      "on_success_condition": "matches.length > 0",
+      "next": "PRICING",
+      "on_failure_condition": "matches.length == 0",
+      "fallback": "NO_PROVIDER_FALLBACK"
+    },
+    "NO_PROVIDER_FALLBACK": {
+      "action": "Inform user no providers available, escalate to manual review",
+      "is_terminal": true
+    },
+    "PRICING": {
+      "endpoint": "/api/calculate-price",
+      "next": "USER_CONFIRMATION"
+    },
+    "USER_CONFIRMATION": {
+      "action": "Present provider and price. Wait for approval.",
+      "on_approve": "BOOKING",
+      "on_reject": "CANCEL_WORKFLOW"
+    },
+    "BOOKING": {
+      "endpoint": "/api/book-service",
+      "on_success_condition": "conflict == false",
+      "next": "FOLLOW_UP",
+      "on_failure_condition": "conflict == true",
+      "fallback": "SUGGEST_ALTERNATE_SLOTS"
+    },
+    "SUGGEST_ALTERNATE_SLOTS": {
+      "action": "Present suggested_slots to user",
+      "next": "BOOKING"
+    },
+    "FOLLOW_UP": {
+      "endpoint": "/api/simulate-followup",
+      "next": "FEEDBACK"
+    },
+    "FEEDBACK": {
+      "endpoint": "/api/submit-feedback",
+      "is_terminal": true
+    }
+  }
+}

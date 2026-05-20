@@ -1,0 +1,44 @@
+{
+  "trace_id": "trace_dispute_serious",
+  "scenario": "Serious Dispute — Full Escalation Path",
+  "timestamp": "2026-05-20T17:05:55.000Z",
+  "stages": [
+    {
+      "state": "DISPUTE_FILED",
+      "agent": "disputeAgent",
+      "input": {
+        "booking_id": "book_001",
+        "provider_id": "prov_ac_001",
+        "user_id": "user_client_45",
+        "issue_type": "cancellation",
+        "severity": "serious"
+      },
+      "decision_tree_path": "severity === 'serious' → ESCALATED_HUMAN"
+    },
+    {
+      "state": "PROVIDER_RISK_UPDATE",
+      "agent": "disputeAgent",
+      "actions": [
+        "Provider cancellation_rate incremented by 0.05",
+        "New cancellation_rate: 0.52",
+        "cancellation_rate > 0.20 → risk_score set to 'high'",
+        "Provider flagged as HIGH RISK and deprioritized in matching"
+      ]
+    },
+    {
+      "state": "RESOLUTION",
+      "output": {
+        "dispute_status": "escalated_human",
+        "refund_amount": 0,
+        "provider_flagged": true
+      },
+      "reasoning_trace": "Serious issue detected. Provider flagged, booking funds frozen. Escalated to human support. | Provider cancellation rate updated to 0.52. | WARNING: Cancellation rate > 20%. Provider flagged as HIGH RISK and deprioritized in matching."
+    }
+  ],
+  "final_state": "ESCALATED_TO_HUMAN_SUPPORT",
+  "side_effects": [
+    "Provider risk_score updated to 'high' in Firestore",
+    "Provider deprioritized in future matchmaking queries",
+    "Booking funds frozen pending human review"
+  ]
+}

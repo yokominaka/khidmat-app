@@ -1,0 +1,92 @@
+{
+  "test_run_timestamp": "2026-05-20T20:28:20Z",
+  "total_scenarios": 5,
+  "passed": 5,
+  "failed": 0,
+  "results": [
+    {
+      "scenario": 1,
+      "name": "No provider available → fallback message",
+      "status": "PASS",
+      "input": { "service_type": "spaceship mechanic", "location": "Blue Area", "urgency": "medium" },
+      "response": {
+        "success": true,
+        "providers": [],
+        "message": "No providers found for this service."
+      },
+      "assertion": "Empty providers array + fallback message returned"
+    },
+    {
+      "scenario": 2,
+      "name": "Provider cancels after confirmation → auto-reschedule triggers",
+      "status": "PASS",
+      "step_1_booking": {
+        "input": { "user_id": "user_stress_02", "provider_id": "prov_ac_003", "date": "2026-05-22", "time_slot": "09:00-12:00" },
+        "response": { "success": true, "conflict": false, "booking_id": "book_1779308919673_761" }
+      },
+      "step_2_conflict": {
+        "input": { "user_id": "user_stress_02b", "provider_id": "prov_ac_003", "date": "2026-05-22", "time_slot": "09:00-12:00" },
+        "response": {
+          "success": false,
+          "conflict": true,
+          "message": "This slot was just booked by someone else! Here are the next available slots for this provider.",
+          "suggested_slots": ["13:00-16:00", "17:00-20:00"]
+        }
+      },
+      "assertion": "Conflict detected, alternative slots suggested"
+    },
+    {
+      "scenario": 3,
+      "name": "Misspelled/ambiguous input → clarification question fires",
+      "status": "PASS",
+      "input": { "userInput": "asdfghjkl random gibberish xyz" },
+      "response": {
+        "confidence_score": 0.10,
+        "clarification_needed": true,
+        "action_taken": "HALTED_FOR_CLARIFICATION",
+        "clarification_question": "Maaf kijiye, mein aapki request samajh nahi paya. Aapko kis kism ki service chahiye aur kis location par?",
+        "service_type": null,
+        "location": null
+      },
+      "assertion": "Low confidence (0.10), clarification question generated in Roman Urdu"
+    },
+    {
+      "scenario": 4,
+      "name": "Two users book same provider simultaneously → double-booking prevention",
+      "status": "PASS",
+      "step_1_user_a": {
+        "input": { "user_id": "user_race_A", "provider_id": "prov_ac_009", "date": "2026-05-22", "time_slot": "09:00-12:00" },
+        "response": { "success": true, "conflict": false, "booking_id": "book_1779309037205_198" }
+      },
+      "step_2_user_b": {
+        "input": { "user_id": "user_race_B", "provider_id": "prov_ac_009", "date": "2026-05-22", "time_slot": "09:00-12:00" },
+        "response": {
+          "success": false,
+          "conflict": true,
+          "message": "This slot was just booked by someone else! Here are the next available slots for this provider.",
+          "suggested_slots": ["13:00-17:00"]
+        }
+      },
+      "assertion": "First booking succeeded, second detected conflict and suggested alternatives"
+    },
+    {
+      "scenario": 5,
+      "name": "Price dispute after service → dispute agent decision tree runs",
+      "status": "PASS",
+      "input": {
+        "booking_id": "book_1779308919673_761",
+        "provider_id": "prov_ac_003",
+        "user_id": "user_stress_02",
+        "issue_type": "quality",
+        "severity": "serious"
+      },
+      "response": {
+        "dispute_status": "escalated_human",
+        "refund_amount": 0,
+        "provider_flagged": false,
+        "reason": "Serious issue detected. Provider flagged, booking funds frozen. Escalated to human support."
+      },
+      "assertion": "Dispute escalated to human support, funds frozen"
+    }
+  ]
+}

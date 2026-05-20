@@ -1,0 +1,194 @@
+[
+  {
+    "timestamp": "2026-05-18T00:01:30.031Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-error-fallback",
+    "input": "Mera AC bilkul cooling nahi kar raha, bohat garam hai room, emergency repair chahiye G-13 me.",
+    "result": {
+      "service_type": "AC Repair",
+      "location": "G-13",
+      "urgency": "high",
+      "budget_sensitive": false,
+      "confidence_score": 0.85,
+      "clarifying_question": null,
+      "reasoning": "[API Error Fallback] Parsed via rule-based local linguistic fallback pattern."
+    },
+    "reasoning": "[API Error Fallback] Parsed via rule-based local linguistic fallback pattern."
+  },
+  {
+    "timestamp": "2026-05-18T00:01:30.330Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-error-fallback",
+    "input": "AC saaf karwana hai saste me rawalpindi saddar.",
+    "result": {
+      "service_type": "General Cleaning",
+      "location": "Saddar",
+      "urgency": "medium",
+      "budget_sensitive": false,
+      "confidence_score": 0.85,
+      "clarifying_question": null,
+      "reasoning": "[API Error Fallback] Parsed via rule-based local linguistic fallback pattern."
+    },
+    "reasoning": "[API Error Fallback] Parsed via rule-based local linguistic fallback pattern."
+  },
+  {
+    "timestamp": "2026-05-18T00:01:30.950Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-error-fallback",
+    "input": "Mera AC chal nahi raha.",
+    "result": {
+      "service_type": "AC Repair",
+      "location": null,
+      "urgency": "medium",
+      "budget_sensitive": false,
+      "confidence_score": 0.7,
+      "clarifying_question": "Aapka AC kis area (location) mein repair hona hai, aur kiya koi budget ya urgency issue hai?",
+      "reasoning": "[API Error Fallback] Parsed via rule-based local linguistic fallback pattern."
+    },
+    "reasoning": "[API Error Fallback] Parsed via rule-based local linguistic fallback pattern."
+  },
+  {
+    "timestamp": "2026-05-18T00:01:31.201Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-error-fallback",
+    "input": "AC cooling service in I-8 sector location please.",
+    "result": {
+      "service_type": null,
+      "location": "I-8",
+      "urgency": "medium",
+      "budget_sensitive": false,
+      "confidence_score": 0.7,
+      "clarifying_question": "Aapka AC kis area (location) mein repair hona hai, aur kiya koi budget ya urgency issue hai?",
+      "reasoning": "[API Error Fallback] Parsed via rule-based local linguistic fallback pattern."
+    },
+    "reasoning": "[API Error Fallback] Parsed via rule-based local linguistic fallback pattern."
+  },
+  {
+    "timestamp": "2026-05-18T00:02:20.598Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-gemini",
+    "input": "Mera AC bilkul cooling nahi kar raha, bohat garam hai room, emergency repair chahiye G-13 me.",
+    "result": {
+      "service_type": "AC Repair",
+      "location": "G-13",
+      "urgency": "high",
+      "budget_sensitive": false,
+      "confidence_score": 0.95,
+      "clarifying_question": null,
+      "reasoning": "Extracted high urgency from 'emergency repair' and 'bohat garam hai room'. Service type AC Repair from 'cooling nahi kar raha' and 'repair'. Location G-13."
+    },
+    "reasoning": "Extracted high urgency from 'emergency repair' and 'bohat garam hai room'. Service type AC Repair from 'cooling nahi kar raha' and 'repair'. Location G-13."
+  },
+  {
+    "timestamp": "2026-05-18T00:02:23.979Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-gemini",
+    "input": "AC saaf karwana hai saste me rawalpindi saddar.",
+    "result": {
+      "service_type": "General Cleaning",
+      "location": "Saddar",
+      "urgency": "medium",
+      "budget_sensitive": true,
+      "confidence_score": 0.9,
+      "clarifying_question": null,
+      "reasoning": "Extracted service type General Cleaning from 'saaf karwana'. Budget sensitive is true due to 'saste me'. Location Saddar."
+    },
+    "reasoning": "Extracted service type General Cleaning from 'saaf karwana'. Budget sensitive is true due to 'saste me'. Location Saddar."
+  },
+  {
+    "timestamp": "2026-05-18T00:02:27.197Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-gemini",
+    "input": "Mera AC chal nahi raha.",
+    "result": {
+      "service_type": "AC Repair",
+      "location": null,
+      "urgency": "medium",
+      "budget_sensitive": false,
+      "confidence_score": 0.6,
+      "clarifying_question": "Aapka AC kis area (location) mein repair hona hai, aur kiya koi budget ya urgency issue hai?",
+      "reasoning": "Extracted service AC Repair from 'AC chal nahi raha'. Location is missing and no explicit urgency or budget sensitivity indicated, leading to confidence score 0.60 (< 0.75). Generated clarifying question for location, budget, and urgency."
+    },
+    "reasoning": "Extracted service AC Repair from 'AC chal nahi raha'. Location is missing and no explicit urgency or budget sensitivity indicated, leading to confidence score 0.60 (< 0.75). Generated clarifying question for location, budget, and urgency."
+  },
+  {
+    "timestamp": "2026-05-18T00:02:31.187Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-gemini",
+    "input": "AC cooling service in I-8 sector location please.",
+    "result": {
+      "service_type": "AC Repair",
+      "location": "I-8",
+      "urgency": "medium",
+      "budget_sensitive": false,
+      "confidence_score": 0.9,
+      "clarifying_question": null,
+      "reasoning": "Extracted service type AC Repair from 'AC cooling service' which implies fixing cooling issues. Location identified as I-8 from 'I-8 sector'. No urgency or budget sensitivity indicators found."
+    },
+    "reasoning": "Extracted service type AC Repair from 'AC cooling service' which implies fixing cooling issues. Location identified as I-8 from 'I-8 sector'. No urgency or budget sensitivity indicators found."
+  },
+  {
+    "timestamp": "2026-05-18T00:24:23.027Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-gemini",
+    "input": "Mera AC bilkul cooling nahi kar raha, bohat garam hai room, emergency repair chahiye G-13 me.",
+    "result": {
+      "service_type": "AC Repair",
+      "location": "G-13",
+      "urgency": "high",
+      "budget_sensitive": false,
+      "confidence_score": 0.95,
+      "clarifying_question": null,
+      "reasoning": "Extracted high urgency from 'emergency repair' and 'bohat garam'. Service type AC Repair from 'cooling nahi kar raha' and 'repair'. Location G-13."
+    },
+    "reasoning": "Extracted high urgency from 'emergency repair' and 'bohat garam'. Service type AC Repair from 'cooling nahi kar raha' and 'repair'. Location G-13."
+  },
+  {
+    "timestamp": "2026-05-18T00:24:25.301Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-gemini",
+    "input": "AC saaf karwana hai saste me rawalpindi saddar.",
+    "result": {
+      "service_type": "General Cleaning",
+      "location": "Saddar",
+      "urgency": "medium",
+      "budget_sensitive": true,
+      "confidence_score": 0.9,
+      "clarifying_question": null,
+      "reasoning": "Extracted service type General Cleaning from 'saaf karwana'. Budget sensitive is true due to 'saste me'. Location Saddar from 'rawalpindi saddar'."
+    },
+    "reasoning": "Extracted service type General Cleaning from 'saaf karwana'. Budget sensitive is true due to 'saste me'. Location Saddar from 'rawalpindi saddar'."
+  },
+  {
+    "timestamp": "2026-05-18T00:24:29.127Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-gemini",
+    "input": "Mera AC chal nahi raha.",
+    "result": {
+      "service_type": "AC Repair",
+      "location": null,
+      "urgency": "medium",
+      "budget_sensitive": false,
+      "confidence_score": 0.6,
+      "clarifying_question": "Aapka AC kis area (location) mein repair hona hai, aur kiya koi budget ya urgency issue hai?",
+      "reasoning": "Extracted service AC Repair from 'chal nahi raha' but location is missing, leading to confidence score 0.60 (< 0.75). Generated clarifying question."
+    },
+    "reasoning": "Extracted service AC Repair from 'chal nahi raha' but location is missing, leading to confidence score 0.60 (< 0.75). Generated clarifying question."
+  },
+  {
+    "timestamp": "2026-05-18T00:24:31.400Z",
+    "agent": "Intent_NLP_Agent",
+    "action": "analyze-intent-gemini",
+    "input": "AC cooling service in I-8 sector location please.",
+    "result": {
+      "service_type": "AC Repair",
+      "location": "I-8",
+      "urgency": "medium",
+      "budget_sensitive": false,
+      "confidence_score": 0.95,
+      "clarifying_question": null,
+      "reasoning": "Extracted service type 'AC Repair' from 'AC cooling service'. Location 'I-8' from 'I-8 sector location'. No urgency or budget sensitivity indicators found."
+    },
+    "reasoning": "Extracted service type 'AC Repair' from 'AC cooling service'. Location 'I-8' from 'I-8 sector location'. No urgency or budget sensitivity indicators found."
+  }
+]

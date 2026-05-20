@@ -1,0 +1,51 @@
+{
+  "trace_id": "trace_e11_beautician",
+  "scenario": "E-11 Makeup Artist → Beautician Category Mapping",
+  "timestamp": "2026-05-20T20:07:05.561Z",
+  "stages": [
+    {
+      "state": "INTENT_PARSING",
+      "agent": "intentAgent",
+      "input": "need an makeup artist at e11",
+      "output": {
+        "service_type": "beautician",
+        "location": "E-11",
+        "urgency": "medium",
+        "preferred_time": "As soon as possible",
+        "budget_sensitivity": "medium",
+        "confidence_score": 0.95
+      },
+      "decision": "PROCEEDED_TO_MATCHMAKING — NLP correctly mapped 'makeup artist' to standardized 'beautician' category"
+    },
+    {
+      "state": "PROVIDER_MATCHING",
+      "agent": "matchingAgent",
+      "reasoning_trace": "Recommended Nida Home Salon Services.",
+      "top_provider": {
+        "name": "Nida Home Salon Services"
+      },
+      "decision": "Top-ranked beautician provider selected"
+    },
+    {
+      "state": "PRICING",
+      "agent": "pricingAgent",
+      "reasoning_trace": "Price calculated at 6207 PKR. Base: 5000 PKR. Travel (+26 PKR for 4.3km). intermediate complexity (1.3x). Loyalty discount applied (-327 PKR).",
+      "output": {
+        "total_pkr": 6207
+      }
+    },
+    {
+      "state": "BOOKING",
+      "agent": "bookingAgent",
+      "booking_id": "book_1779307648607_122",
+      "whatsapp_notification": "Hi! Your booking (book_1779307648607_122) with Nida Home Salon Services is confirmed for 2026-05-20 at As soon as possible. Total: 6207 PKR."
+    },
+    {
+      "state": "FEEDBACK",
+      "agent": "followupAgent",
+      "reasoning_trace": "Provider prov_beauty_007 received a 5-star rating. Rating updated from 4.6 to 4.6."
+    }
+  ],
+  "final_state": "COMPLETED",
+  "notes": "This trace demonstrates the NLP agent's ability to normalize informal service names ('makeup artist' → 'beautician') and cross-category matching."
+}

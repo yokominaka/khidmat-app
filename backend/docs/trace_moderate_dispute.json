@@ -1,0 +1,36 @@
+{
+  "trace_id": "trace_moderate_dispute_refund",
+  "scenario": "Moderate Dispute — 30% Partial Refund",
+  "timestamp": "2026-05-20T19:43:00.000Z",
+  "stages": [
+    {
+      "state": "DISPUTE_FILED",
+      "agent": "disputeAgent",
+      "input": {
+        "booking_id": "book_1779304938225_242",
+        "provider_id": "prov_ac_009",
+        "user_id": "user_client_45",
+        "issue_type": "quality",
+        "severity": "moderate"
+      },
+      "decision_tree_path": "severity === 'moderate' → RESOLVED_PARTIAL (30% refund)"
+    },
+    {
+      "state": "REFUND_CALCULATION",
+      "agent": "disputeAgent",
+      "original_booking_total": 5688,
+      "refund_percentage": "30%",
+      "refund_amount": 1706,
+      "reasoning_trace": "Moderate issue detected. Issued 30% partial refund (PKR 1706)."
+    },
+    {
+      "state": "RESOLUTION",
+      "output": {
+        "dispute_status": "resolved_partial",
+        "refund_amount": 1706,
+        "provider_flagged": false
+      }
+    }
+  ],
+  "final_state": "RESOLVED_PARTIAL"
+}

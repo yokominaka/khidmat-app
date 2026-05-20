@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables
+.env
+
+# Firebase credentials (CRITICAL: Do not commit!)
+firebase-service-account.json
+backend/firebase-service-account.json
+
+# Build outputs
+mobile/.expo/
+mobile/web-build/
+mobile/dist/
+
+# OS files
+.DS_Store
+Thumbs.db

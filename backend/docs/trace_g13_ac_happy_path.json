@@ -1,0 +1,83 @@
+{
+  "trace_id": "trace_g13_ac_full_flow",
+  "scenario": "G-13 AC Technician — Full Happy Path",
+  "timestamp": "2026-05-20T17:05:55.633Z",
+  "stages": [
+    {
+      "state": "INTENT_PARSING",
+      "agent": "intentAgent",
+      "input": "G-13 mein AC kharab hai, please kal subah 10 baje kisi ko bhej dein",
+      "output": {
+        "service_type": "AC technician",
+        "location": "G-13",
+        "urgency": "medium",
+        "preferred_time": "Tomorrow 10 AM",
+        "budget_sensitivity": "medium",
+        "confidence_score": 0.95
+      },
+      "decision": "PROCEEDED_TO_MATCHMAKING (confidence 0.95 >= 0.70 threshold)"
+    },
+    {
+      "state": "PROVIDER_MATCHING",
+      "agent": "matchingAgent",
+      "reasoning_trace": "Recommended Ali AC Services (G-13) despite being 1.8km farther than the closest option — selected due to a 31% higher on-time reliability score and stronger specialization match.",
+      "top_provider": {
+        "id": "prov_ac_001",
+        "name": "Ali AC Services (G-13)",
+        "algorithm_score": "0.837",
+        "distance_km": "1.8",
+        "rating": 4.5,
+        "on_time_score": 0.96
+      },
+      "total_candidates_scored": 5,
+      "decision": "Selected top-ranked provider by composite score"
+    },
+    {
+      "state": "PRICING",
+      "agent": "pricingAgent",
+      "reasoning_trace": "Price calculated at 6175 PKR. Base: 5000 PKR. intermediate complexity (1.3x). Loyalty discount applied (-325 PKR).",
+      "output": {
+        "total_pkr": 6175,
+        "base_price": 5000,
+        "distance_cost": 0,
+        "urgency_multiplier": 1.0,
+        "complexity_multiplier": 1.3,
+        "surge_factor": 1.0,
+        "loyalty_discount": -325
+      },
+      "decision": "Price presented to user for confirmation"
+    },
+    {
+      "state": "BOOKING",
+      "agent": "bookingAgent",
+      "booking_id": "book_1779296847252_708",
+      "double_booking_check": "PASSED (no conflict detected)",
+      "slot_removed_from_provider": true,
+      "whatsapp_notification": "Hi! Your booking (book_1779296847252_708) with Ali AC Services (G-13) is confirmed for 2026-05-21 at 10:00-11:00. Total: 6175 PKR.",
+      "decision": "Booking confirmed, provider slot locked"
+    },
+    {
+      "state": "LIVE_TRACKING",
+      "agent": "followupAgent",
+      "timeline_events": [
+        "T-60min: Reminder notification sent",
+        "T-15min: Provider en-route notification sent",
+        "T+0: Provider arrived notification sent",
+        "T+duration: Service complete notification sent",
+        "FEEDBACK_TRIGGER: Rating request sent"
+      ],
+      "decision": "Timeline completed, transitioned to FEEDBACK"
+    },
+    {
+      "state": "FEEDBACK",
+      "agent": "followupAgent",
+      "input": { "provider_id": "prov_ac_001", "rating": 5, "comment": "Excellent service!" },
+      "output": { "old_rating": 4.5, "new_rating": 4.5 },
+      "reasoning_trace": "Provider prov_ac_001 received a 5-star rating. Rating updated from 4.5 to 4.5.",
+      "decision": "Feedback recorded, rating updated via rolling average"
+    }
+  ],
+  "final_state": "COMPLETED",
+  "total_api_calls": 6,
+  "total_transitions": 6
+}
