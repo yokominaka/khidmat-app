@@ -9,14 +9,16 @@ if (!admin.apps.length) {
         if (process.env.FIREBASE_SERVICE_ACCOUNT) {
             serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
             if (serviceAccount.private_key) {
-                serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '
-');
+                serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
             }
         } else {
             serviceAccount = require('../firebase-service-account.json');
         }
         admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
-    } catch (e) {
+    } catch(e) {
+        console.error('Firebase Initialization Error:', e);
+    }
+} catch (e) {
         console.error('Firebase Initialization Error:', e);
         process.exit(1);
     }

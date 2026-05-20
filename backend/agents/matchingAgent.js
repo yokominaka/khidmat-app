@@ -6,8 +6,20 @@ const admin = require('firebase-admin');
 
 // Ensure Firebase is initialized (uses the instance from Day 1)
 if (!admin.apps.length) {
-    const serviceAccount = require('../firebase-service-account.json');
-    admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+    try {
+        let serviceAccount;
+        if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+            serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+            if (serviceAccount.private_key) {
+                serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+            }
+        } else {
+            serviceAccount = require('../firebase-service-account.json');
+        }
+        admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+    } catch(e) {
+        console.error('Firebase Initialization Error:', e);
+    }
 }
 const db = admin.firestore();
 
