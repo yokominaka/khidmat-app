@@ -18,10 +18,6 @@ if (!admin.apps.length) {
     } catch(e) {
         console.error('Firebase Initialization Error:', e);
     }
-} catch (e) {
-        console.error('Firebase Initialization Error:', e);
-        process.exit(1);
-    }
 }
 const db = admin.firestore();
 
