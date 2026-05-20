@@ -128,6 +128,7 @@ router.post('/match-providers', async (req, res) => {
 
             scoredProviders.push({
                 ...prov,
+                id: doc.id,
                 distance_km: distanceKm.toFixed(1),
                 algorithm_score: totalScore.toFixed(3),
                 metrics_breakdown: { distance: scoreDistance, availability: scoreAvailability, rating: scoreRating, onTime: scoreOnTime }
@@ -164,4 +165,3 @@ router.post('/match-providers', async (req, res) => {
 });
 
 module.exports = router;
-
