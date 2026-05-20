@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { API_BASE_URL } from '../config';
 
@@ -24,6 +24,7 @@ export default function ChatInputScreen({ navigation }) {
       const json = await response.json();
       
       if (json.success && json.data) {
+        setInputText(''); // Clear input after processing
         if (json.data.confidence_score < 0.70) {
           setClarification(json.data.clarification_question);
         } else {
@@ -40,7 +41,7 @@ export default function ChatInputScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <View style={styles.chatHistory}>
         <View style={styles.botMessageContainer}>
           <View style={styles.botAvatar}>
@@ -82,7 +83,8 @@ export default function ChatInputScreen({ navigation }) {
             placeholderTextColor="#9CA3AF"
             value={inputText}
             onChangeText={setInputText}
-            multiline
+            onSubmitEditing={handleSend}
+            blurOnSubmit={false}
           />
           
           <TouchableOpacity 
@@ -98,7 +100,7 @@ export default function ChatInputScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

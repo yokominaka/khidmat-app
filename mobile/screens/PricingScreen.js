@@ -88,7 +88,7 @@ export default function PricingScreen({ route, navigation }) {
   if (!pricing) return null;
 
   return (
-    <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={{ flex: 1, backgroundColor: '#F8FAFC' }} contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>Price Estimate</Text>
         <Text style={styles.headerSubtitle}>{provider.name}</Text>
