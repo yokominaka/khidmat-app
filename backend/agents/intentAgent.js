@@ -118,10 +118,10 @@ router.post('/parse-intent', async (req, res) => {
         });
 
     } catch (error) {
-        console.error("❌ Intent Processing Failure:", error.message);
+        console.error("❌ Intent Processing Failure:", error?.response?.data || error.message);
         return res.status(500).json({ 
             success: false, 
-            error: "Failed to parse system structural intent." 
+            error: "Failed to parse system structural intent. Details: " + (error?.response?.data?.error?.message || error.message)
         });
     }
 });
