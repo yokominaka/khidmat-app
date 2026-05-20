@@ -57,16 +57,20 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="ChatInput" screenOptions={headerOptions}>
-        <Stack.Screen name="ChatInput" component={ChatInputScreen} options={{ title: 'KhidmatApp' }} />
-        <Stack.Screen name="ProviderList" component={ProviderListScreen} options={{ title: 'Matching Providers' }} />
-        <Stack.Screen name="Pricing" component={PricingScreen} options={{ title: 'Price Estimate' }} />
-        <Stack.Screen name="BookingConfirmation" component={BookingConfirmationScreen} options={{ title: 'Booking Confirmed', headerLeft: () => null }} />
-        <Stack.Screen name="LiveTracking" component={LiveTrackingScreen} options={{ title: 'Live Tracking', headerLeft: () => null }} />
-        <Stack.Screen name="Feedback" component={FeedbackScreen} options={{ title: 'Leave Feedback', headerLeft: () => null }} />
-        <Stack.Screen name="Dispute" component={DisputeScreen} options={{ title: 'File a Dispute' }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{ flex: 1, backgroundColor: '#E2E8F0', alignItems: 'center' }}>
+      <View style={{ width: '100%', maxWidth: 450, flex: 1, backgroundColor: '#fff', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 15, elevation: 10 }}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="ChatInput" screenOptions={headerOptions}>
+            <Stack.Screen name="ChatInput" component={ChatInputScreen} options={{ title: 'KhidmatApp' }} />
+            <Stack.Screen name="ProviderList" component={ProviderListScreen} options={{ title: 'Matching Providers' }} />
+            <Stack.Screen name="Pricing" component={PricingScreen} options={{ title: 'Price Estimate' }} />
+            <Stack.Screen name="BookingConfirmation" component={BookingConfirmationScreen} options={{ title: 'Booking Confirmed', headerLeft: () => null }} />
+            <Stack.Screen name="LiveTracking" component={LiveTrackingScreen} options={{ title: 'Live Tracking', headerLeft: () => null }} />
+            <Stack.Screen name="Feedback" component={FeedbackScreen} options={{ title: 'Leave Feedback', headerLeft: () => null }} />
+            <Stack.Screen name="Dispute" component={DisputeScreen} options={{ title: 'File a Dispute' }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+    </View>
   );
 }
