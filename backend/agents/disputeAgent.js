@@ -62,6 +62,9 @@ router.post('/file-dispute', async (req, res) => {
         }
 
         let providerUpdates = {};
+        const logEntry = {
+            agent: "disputeAgent", booking_id, user_id, provider_id, issue_type, severity, status, refund_amount, reason: traceReason, timestamp: new Date().toISOString()
+        };
         try {
             if (issue_type === "cancellation" || issue_type === "no_show") {
                 const providerRef = db.collection('providers').doc(provider_id);
@@ -86,9 +89,6 @@ router.post('/file-dispute', async (req, res) => {
                  await providerRef.update({ flags: admin.firestore.FieldValue.arrayUnion(booking_id) });
             }
 
-            const logEntry = {
-                agent: "disputeAgent", booking_id, user_id, provider_id, issue_type, severity, status, refund_amount, reason: traceReason, timestamp: new Date().toISOString()
-            };
             await db.collection('agent_logs').add(logEntry);
         } catch (e) {
             console.error("🔥 Firebase Suspended! Ignoring DB updates for dispute.");
