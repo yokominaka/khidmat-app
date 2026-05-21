@@ -59,8 +59,8 @@ router.post('/match-providers', async (req, res) => {
             console.error("🔥 Firebase Suspended! Falling back to hardcoded mock providers.");
             // Emergency mock providers
             const mockDocs = [
-                { id: "prov_ac_001", data: () => ({ name: "Ali AC Services (G-13)", service_types: ["AC technician"], location: { lat: 33.64, lng: 72.99 }, rating: 4.8, on_time_score: 0.95, specializations: ["Inverter AC"], availability_slots: ["09:00-12:00", "14:00-16:00"] }) },
-                { id: "prov_ac_002", data: () => ({ name: "Khan Cooling & Repair (G-13)", service_types: ["AC technician"], location: { lat: 33.65, lng: 72.98 }, rating: 4.5, on_time_score: 0.88, specializations: [], availability_slots: ["09:00-12:00"] }) }
+                { id: "prov_ac_001", data: () => ({ name: "Ali AC Services (G-13)", service_types: ["AC technician"], price_per_hour: 2200, location: { lat: 33.64, lng: 72.99 }, rating: 4.8, on_time_score: 0.95, specializations: ["Inverter AC"], availability_slots: ["09:00-12:00", "14:00-16:00"] }) },
+                { id: "prov_ac_002", data: () => ({ name: "Khan Cooling & Repair (G-13)", service_types: ["AC technician"], price_per_hour: 1800, location: { lat: 33.65, lng: 72.98 }, rating: 4.5, on_time_score: 0.88, specializations: [], availability_slots: ["09:00-12:00"] }) }
             ];
             snapshot = { empty: false, docs: mockDocs };
         }
