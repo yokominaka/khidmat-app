@@ -60,7 +60,10 @@ router.post('/match-providers', async (req, res) => {
             // Emergency mock providers
             const mockDocs = [
                 { id: "prov_ac_001", data: () => ({ name: "Ali AC Services (G-13)", service_types: ["AC technician"], price_per_hour: 2200, location: { lat: 33.64, lng: 72.99 }, rating: 4.8, on_time_score: 0.95, specializations: ["Inverter AC"], availability_slots: ["09:00-12:00", "14:00-16:00"] }) },
-                { id: "prov_ac_002", data: () => ({ name: "Khan Cooling & Repair (G-13)", service_types: ["AC technician"], price_per_hour: 1800, location: { lat: 33.65, lng: 72.98 }, rating: 4.5, on_time_score: 0.88, specializations: [], availability_slots: ["09:00-12:00"] }) }
+                { id: "prov_ac_002", data: () => ({ name: "Khan Cooling & Repair (G-13)", service_types: ["AC technician"], price_per_hour: 1800, location: { lat: 33.65, lng: 72.98 }, rating: 4.5, on_time_score: 0.88, specializations: [], availability_slots: ["09:00-12:00"] }) },
+                { id: "prov_ac_003", data: () => ({ name: "Islamabad Fast AC Solution (G-13)", service_types: ["AC technician"], price_per_hour: 2500, location: { lat: 33.645, lng: 72.985 }, rating: 4.9, on_time_score: 0.98, specializations: ["Commercial AC"], availability_slots: ["10:00-13:00", "16:00-18:00"] }) },
+                { id: "prov_ac_015", data: () => ({ name: "Express AC Fixers (I-9)", service_types: ["AC technician"], price_per_hour: 2000, location: { lat: 33.66, lng: 73.04 }, rating: 4.2, on_time_score: 0.80, specializations: [], availability_slots: ["11:00-14:00"] }) },
+                { id: "prov_ac_009", data: () => ({ name: "Tariq AC Care (E-11)", service_types: ["AC technician"], price_per_hour: 1500, location: { lat: 33.69, lng: 72.97 }, rating: 4.0, on_time_score: 0.75, specializations: ["Window AC"], availability_slots: ["09:00-12:00"] }) }
             ];
             snapshot = { empty: false, docs: mockDocs };
         }
