@@ -41,7 +41,11 @@ export default function ChatInputScreen({ navigation }) {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <KeyboardAvoidingView 
+      style={styles.container} 
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 80}
+    >
       <View style={styles.chatHistory}>
         <View style={styles.botMessageContainer}>
           <View style={styles.botAvatar}>
