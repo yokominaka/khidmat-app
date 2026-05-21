@@ -20,9 +20,11 @@ export default function DisputeScreen({ route, navigation }) {
     try {
       const payload = {
         booking_id,
+        provider_id,
         user_id: "user_client_45",
-        description,
-        evidence_urls: []
+        issue_type: "service_quality",
+        severity: "moderate",
+        details: description
       };
 
       const response = await fetch(`${API_BASE_URL}/file-dispute`, {
